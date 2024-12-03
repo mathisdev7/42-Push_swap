@@ -12,37 +12,26 @@
 
 #include "../../../includes/push_swap.h"
 
-void	push(t_stack *tab_a, t_stack *tab_b, int size)
+static void push(t_stack **src, t_stack **dst)
 {
-	int	i;
+	t_stack *temp;
 
-	i = tab_b->size;
-	while (i > 0)
-	{
-		tab_b->tab[i] = tab_b->tab[i - 1];
-		i--;
-	}
-	tab_b->tab[0] = tab_a->tab[0];
-	i = 0;
-	while (i < tab_a->size - 1)
-	{
-		tab_a->tab[i] = tab_a->tab[i + 1];
-		i++;
-	}
-	tab_a->size--;
-	tab_b->size++;
+	if (!*src)
+		return;
+	temp = *src;
+	*src = (*src)->next;
+	temp->next = *dst;
+	*dst = temp;
 }
 
-void	pa(t_stack **stack_a, t_stack **stack_b, bool print)
+void pa(t_stack **stack_a, t_stack **stack_b)
 {
-	push(stack_b->tab, stack_a->tab, stack_b->size);
-	if (print)
-		printf("pa\n");
+	push(stack_b, stack_a);
+	ft_putstr_fd("pa\n", 1);
 }
 
-void	pb(t_stack **stack_a, t_stack **stack_b, bool print)
+void pb(t_stack **stack_a, t_stack **stack_b)
 {
-	push(stack_a->tab, stack_b->tab, stack_a->size);
-	if (print)
-		printf("pb\n");
+	push(stack_a, stack_b);
+	ft_putstr_fd("pb\n", 1);
 }

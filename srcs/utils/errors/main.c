@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mazeghou <mazeghou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 17:55:06 by mazeghou          #+#    #+#             */
-/*   Updated: 2024/12/02 17:55:06 by mazeghou         ###   ########.fr       */
+/*   Created: 2024/12/02 17:59:44 by mazeghou          #+#    #+#             */
+/*   Updated: 2024/12/02 17:59:44 by mazeghou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,45 @@
 void	ft_error(t_stack *stack)
 {
 	ft_free(stack);
-	write(2, "Error\n", 5);
+	ft_putstr_fd("Error\n", 2);
 	exit(1);
 }
 
 void	ft_free(t_stack *stack)
 {
-	if (stack->tab)
-		free(stack->tab);
-	if (stack)
+	t_stack	*temp;
+
+	while (stack)
+	{
+		temp = stack->next;
 		free(stack);
+		stack = temp;
+	}
 }
 
 bool	ft_is_duplicate(t_stack *stack, int value)
 {
-	int	i;
+	t_stack	*current;
 
-	i = 0;
-	while (i < stack->size)
+	current = stack;
+	while (current)
 	{
-		if (stack->tab[i] == value)
+		if (current->value == value)
 			return (true);
-		i++;
+		current = current->next;
 	}
 	return (false);
 }
 
-void	ft_print_array(t_stack *stack)
+void	ft_print_stack(t_stack *stack)
 {
-	int	i;
+	t_stack	*current;
 
-	i = 0;
-	while (i < stack->size)
+	current = stack;
+	while (current)
 	{
-		printf("%d\n", stack->tab[i]);
-		i++;
+		ft_putnbr_fd(current->value, 1);
+		ft_putchar_fd('\n', 1);
+		current = current->next;
 	}
 }

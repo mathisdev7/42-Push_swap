@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/push_swap.h"
 
 int	main(int argc, char **argv)
@@ -35,16 +34,15 @@ int	main(int argc, char **argv)
 		ft_stack_add_back(&stack_a, ft_stack_new(num));
 		i++;
 	}
+	// ft_print_stack(stack_a);
 	if (!ft_is_sorted(stack_a))
 	{
-		if (ft_stack_size(stack_a) == 3)
-			ft_three_sort(&stack_a);
-		else if (ft_stack_size(stack_a) == 2 && stack_a->tab[0] > stack_a->tab[1])
-			sa(&stack_a, true);
-		else
-			ft_sort(&stack_a, &stack_b);
+		if (ft_stack_size(stack_a) > 3)
+			ft_first_sort(&stack_a, &stack_b);
+		else if (ft_stack_size(stack_a) == 3)
+			ft_sort_three(&stack_a);
 	}
-	ft_print_stack(stack_a);
+	// ft_print_stack(stack_a);
 	ft_free(stack_a);
 	ft_free(stack_b);
 	return (0);

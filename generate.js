@@ -13,7 +13,6 @@ function executeCommand(command, outputFile) {
 
     const outputStream = fs.createWriteStream(outputFile);
     stdout.split('\n').forEach((line) => {
-		console.log(line);
       if (/^\d+$/.test(line)) {
         outputStream.write(line + '\n');
       }
@@ -38,10 +37,11 @@ function generateRandomNumbers(count, min, max) {
   console.log(`Génération terminée en ${duration}s`);
   console.log("Lancer `node check.js` pour vérifier si les nombres sont dans l'ordre croissant.");
 
-  return numbers.join(' ');
+  return [...new Set(numbers)].join(' ');
 }
 
-const randomNumbers = generateRandomNumbers(32, 100, 500);
+const randomNumbers = generateRandomNumbers(100, -2000, 900);
 const command = `./push_swap "${randomNumbers}"`;
+console.log(command);
 
 executeCommand(command, 'output.txt');

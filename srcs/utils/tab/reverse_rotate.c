@@ -12,33 +12,40 @@
 
 #include "../../../includes/push_swap.h"
 
-void	reverse_rotate(int *tab, int size)
+static void reverse_rotate(t_stack **stack)
 {
-	int	tmp;
+	t_stack *last;
+	t_stack *second_last;
 
-	tmp = tab[size - 1];
-	tab[size - 1] = tab[size - 2];
-	tab[size - 2] = tmp;
+	if (!*stack || !(*stack)->next)
+		return;
+	last = *stack;
+	second_last = NULL;
+	while (last->next)
+	{
+		second_last = last;
+		last = last->next;
+	}
+	second_last->next = NULL;
+	last->next = *stack;
+	*stack = last;
 }
 
-void	rra(t_stack **stack, bool print)
+void rra(t_stack **stack)
 {
-	reverse_rotate(stack->tab, stack->size);
-	if (print)
-		printf("rra\n");
+	reverse_rotate(stack);
+	ft_putstr_fd("rra\n", 1);
 }
 
-void	rrb(t_stack **stack, bool print)
+void rrb(t_stack **stack)
 {
-	reverse_rotate(stack->tab, stack->size);
-	if (print)
-		printf("rrb\n");
+	reverse_rotate(stack);
+	ft_putstr_fd("rrb\n", 1);
 }
 
-void	rrr(t_stack **stack_a, t_stack **stack_b, bool print)
+void rrr(t_stack **a, t_stack **b)
 {
-	if (print)
-		printf("rrr\n");
-	rra(stack_a, print);
-	rrb(stack_b, print);
+	reverse_rotate(a);
+	reverse_rotate(b);
+	ft_putstr_fd("rrr\n", 1);
 }
