@@ -6,7 +6,7 @@
 /*   By: mazeghou <mazeghou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:19:44 by mazeghou          #+#    #+#             */
-/*   Updated: 2024/12/05 22:59:49 by mazeghou         ###   ########.fr       */
+/*   Updated: 2024/12/05 23:04:23 by mazeghou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../libft/libft.h"
 # include <limits.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
