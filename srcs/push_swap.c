@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mazeghou <mazeghou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 18:07:11 by mazeghou          #+#    #+#             */
-/*   Updated: 2024/12/02 18:07:11 by mazeghou         ###   ########.fr       */
+/*   Created: 2024/12/05 10:52:43 by mazeghou          #+#    #+#             */
+/*   Updated: 2024/12/05 10:52:43 by mazeghou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,8 @@ int	main(int argc, char **argv)
 		ft_stack_add_back(&stack_a, ft_stack_new(num));
 		i++;
 	}
-	// ft_print_stack(stack_a);
 	if (!ft_is_sorted(stack_a))
-	{
-		if (ft_stack_size(stack_a) > 3)
-			ft_first_sort(&stack_a, &stack_b);
-		else if (ft_stack_size(stack_a) == 3)
-			ft_sort_three(&stack_a);
-	}
-	// ft_print_stack(stack_a);
+		ft_sort(&stack_a, &stack_b);
 	ft_free(stack_a);
 	ft_free(stack_b);
 	return (0);
