@@ -12,13 +12,13 @@
 
 #include "../../../includes/push_swap.h"
 
-static void rotate(t_stack **stack)
+static void	rotate(t_stack **stack)
 {
-	t_stack *first;
-	t_stack *last;
+	t_stack	*first;
+	t_stack	*last;
 
 	if (!*stack || !(*stack)->next)
-		return;
+		return ;
 	first = *stack;
 	last = *stack;
 	while (last->next)
@@ -28,19 +28,19 @@ static void rotate(t_stack **stack)
 	last->next = first;
 }
 
-void ra(t_stack **stack)
+void	ra(t_stack **stack)
 {
 	rotate(stack);
 	ft_putstr_fd("ra\n", 1);
 }
 
-void rb(t_stack **stack)
+void	rb(t_stack **stack)
 {
 	rotate(stack);
 	ft_putstr_fd("rb\n", 1);
 }
 
-void rr(t_stack **a, t_stack **b)
+void	rr(t_stack **a, t_stack **b)
 {
 	rotate(a);
 	rotate(b);

@@ -12,25 +12,25 @@
 
 #include "../../../includes/push_swap.h"
 
-static void push(t_stack **src, t_stack **dst)
+static void	push(t_stack **src, t_stack **dst)
 {
-	t_stack *temp;
+	t_stack	*temp;
 
 	if (!*src)
-		return;
+		return ;
 	temp = *src;
 	*src = (*src)->next;
 	temp->next = *dst;
 	*dst = temp;
 }
 
-void pa(t_stack **stack_a, t_stack **stack_b)
+void	pa(t_stack **stack_a, t_stack **stack_b)
 {
 	push(stack_b, stack_a);
 	ft_putstr_fd("pa\n", 1);
 }
 
-void pb(t_stack **stack_a, t_stack **stack_b)
+void	pb(t_stack **stack_a, t_stack **stack_b)
 {
 	push(stack_a, stack_b);
 	ft_putstr_fd("pb\n", 1);

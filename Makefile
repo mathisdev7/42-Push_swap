@@ -18,7 +18,10 @@ SRC_FILES = $(SRC_DIR)/push_swap.c \
 			$(TAB_DIR)/reverse_rotate.c \
 			$(TAB_DIR)/utils.c \
 			$(ERRORS_DIR)/main.c \
-			$(UTILS_DIR)/algorithm/sort.c
+			$(UTILS_DIR)/algorithm/sort.c \
+			$(UTILS_DIR)/algorithm/utils.c \
+			$(UTILS_DIR)/algorithm/stack.c \
+			$(UTILS_DIR)/algorithm/chunk.c
 
 # Object files
 OBJ_FILES = $(SRC_FILES:.c=.o)

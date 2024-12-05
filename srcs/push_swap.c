@@ -6,7 +6,7 @@
 /*   By: mazeghou <mazeghou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:52:43 by mazeghou          #+#    #+#             */
-/*   Updated: 2024/12/05 10:52:43 by mazeghou         ###   ########.fr       */
+/*   Updated: 2024/12/05 22:49:50 by mazeghou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
-	int	i;
+	int		i;
+	long	num;
 
 	if (argc < 2)
 		ft_error(NULL);
@@ -26,7 +27,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (argv[i])
 	{
-		long num = ft_atoi(argv[i]);
+		num = ft_atoi(argv[i]);
 		if (num > INT_MAX || num < INT_MIN)
 			ft_error(stack_a);
 		if (ft_is_duplicate(stack_a, num))
@@ -37,6 +38,5 @@ int	main(int argc, char **argv)
 	if (!ft_is_sorted(stack_a))
 		ft_sort(&stack_a, &stack_b);
 	ft_free(stack_a);
-	ft_free(stack_b);
 	return (0);
 }
