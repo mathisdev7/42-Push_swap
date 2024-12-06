@@ -6,106 +6,123 @@
 /*   By: mazeghou <mazeghou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:36:03 by mazeghou          #+#    #+#             */
-/*   Updated: 2024/12/05 22:53:21 by mazeghou         ###   ########.fr       */
+/*   Updated: 2024/12/06 22:42:49 by mazeghou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/push_swap.h"
+#include "push_swap.h"
 
-void	ft_sort_three(t_stack **stack_a)
+void	ft_sort_three(t_stack *stack_a)
 {
-	int	first;
-	int	second;
-	int	third;
+	int	tab_0;
+	int	tab_1;
+	int	tab_2;
 
-	first = (*stack_a)->value;
-	second = (*stack_a)->next->value;
-	third = (*stack_a)->next->next->value;
-	if (first > second && second < third && first < third)
+	if (stack_a->size != 3)
+		return ;
+	tab_0 = stack_a->tab[0];
+	tab_1 = stack_a->tab[1];
+	tab_2 = stack_a->tab[2];
+	if (tab_0 > tab_1 && tab_1 < tab_2 && tab_0 < tab_2)
 		sa(stack_a);
-	else if (first > second && second > third)
+	else if (tab_0 > tab_1 && tab_1 > tab_2)
 	{
 		sa(stack_a);
 		rra(stack_a);
 	}
-	else if (first > second && second < third && first > third)
+	else if (tab_0 > tab_1 && tab_1 < tab_2 && tab_0 > tab_2)
 		ra(stack_a);
-	else if (first < second && second > third && first < third)
+	else if (tab_0 < tab_1 && tab_1 > tab_2 && tab_0 < tab_2)
 	{
 		sa(stack_a);
 		ra(stack_a);
 	}
-	else if (first < second && second > third && first > third)
+	else if (tab_0 < tab_1 && tab_1 > tab_2 && tab_0 > tab_2)
 		rra(stack_a);
 }
 
-void	ft_quick_sort(int arr[], int low, int high)
+void	ft_sort_simple(t_stack *stack_a)
 {
-	int	pi;
-
-	if (low < high)
+	if (stack_a->size == 2)
 	{
-		pi = partition(arr, low, high);
-		ft_quick_sort(arr, low, pi - 1);
-		ft_quick_sort(arr, pi + 1, high);
+		if (stack_a->tab[0] > stack_a->tab[1])
+			ra(stack_a);
 	}
-}
-
-void	ft_sort_small(t_stack **stack_a)
-{
-	int	size;
-
-	size = ft_stack_size(*stack_a);
-	if (size == 2)
-	{
-		if ((*stack_a)->value > (*stack_a)->next->value)
-			sa(stack_a);
-	}
-	else if (size == 3)
+	else if (stack_a->size == 3)
 		ft_sort_three(stack_a);
 }
 
-void	push_back_to_a(t_stack **stack_a, t_stack **stack_b)
+void	rotate_to_top(long value, int target_value, t_stack *stack_a,
+		t_stack *stack_b)
 {
-	int	size_b;
-	int	max_value;
-	int	max_pos;
+	int	index_a;
+	int	index_b;
 
-	while (*stack_b)
-	{
-		find_max_position(*stack_b, &max_value, &max_pos);
-		size_b = ft_stack_size(*stack_b);
-		if (max_pos <= size_b / 2)
-			while (max_pos-- > 0)
-				rb(stack_b);
-		else
-			while (max_pos++ < size_b)
-				rrb(stack_b);
-		pa(stack_a, stack_b);
-	}
+	index_a = 0;
+	index_b = 0;
+	while (stack_a->tab[index_a] != value)
+		index_a++;
+	while (stack_b->tab[index_b] != target_value)
+		index_b++;
+	if (index_a < stack_a->size / 2)
+		while (stack_a->tab[0] != value)
+			ra(stack_a);
+	else
+		while (stack_a->tab[0] != value)
+			rra(stack_a);
+	if (index_b < stack_b->size / 2)
+		while (stack_b->tab[0] != target_value)
+			rb(stack_b);
+	else
+		while (stack_b->tab[0] != target_value)
+			rrb(stack_b);
 }
 
-void	ft_sort(t_stack **stack_a, t_stack **stack_b)
+void	min_to_top(t_stack *stack_a)
 {
-	int				total;
-	int				*sorted;
-	t_chunk_data	data;
+	int	i;
+	int	min;
+	int	min_index;
 
-	total = ft_stack_size(*stack_a);
-	if (total <= 3)
+	i = 0;
+	min_index = 0;
+	min = stack_a->tab[0];
+	while (i < stack_a->size)
 	{
-		ft_sort_small(stack_a);
+		if (min > stack_a->tab[i])
+		{
+			min = stack_a->tab[i];
+			min_index = i;
+		}
+		i++;
+	}
+	if (min_index < stack_a->size / 2)
+		while (stack_a->tab[0] != min)
+			ra(stack_a);
+	else
+		while (stack_a->tab[0] != min)
+			rra(stack_a);
+}
+
+void	ft_sort(t_stack *stack_a, t_stack *stack_b)
+{
+	if (ft_is_sorted(stack_a->tab, stack_a->size))
+		return ;
+	if (stack_a->size <= 3)
+	{
+		ft_sort_simple(stack_a);
 		return ;
 	}
-	sorted = malloc(total * sizeof(int));
-	if (!sorted)
-		return ;
-	copy_stack_to_array(*stack_a, sorted);
-	ft_quick_sort(sorted, 0, total - 1);
-	data.sorted = sorted;
-	data.total = total;
-	data.chunk_count = get_chunk_count(total);
-	process_chunks(stack_a, stack_b, &data);
-	push_back_to_a(stack_a, stack_b);
-	free(sorted);
+	pb(stack_a, stack_b);
+	pb(stack_a, stack_b);
+	while (stack_a->size > 3)
+	{
+		push_to_b(stack_a, stack_b);
+	}
+	ft_sort_three(stack_a);
+	while (stack_b->size > 0)
+	{
+		push_to_a(stack_a, stack_b);
+	}
+	min_to_top(stack_a);
 }

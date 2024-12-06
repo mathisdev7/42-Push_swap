@@ -17,7 +17,7 @@ OBJSALL = ${SRCSALL:.c=.o}
 
 LIB = libft.a
 
-CC = gcc
+CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -I ./
 

@@ -6,11 +6,11 @@
 /*   By: mazeghou <mazeghou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:59:44 by mazeghou          #+#    #+#             */
-/*   Updated: 2024/12/02 17:59:44 by mazeghou         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:07:15 by mazeghou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/push_swap.h"
+#include "push_swap.h"
 
 void	ft_error(t_stack *stack)
 {
@@ -21,39 +21,29 @@ void	ft_error(t_stack *stack)
 
 void	ft_free(t_stack *stack)
 {
-	t_stack	*temp;
-
-	while (stack)
-	{
-		temp = stack->next;
-		free(stack);
-		stack = temp;
-	}
+	if (!stack)
+		return ;
+	if (stack->tab)
+		free(stack->tab);
+	free(stack);
 }
 
-bool	ft_is_duplicate(t_stack *stack, int value)
+bool	ft_is_duplicate(t_stack *stack)
 {
-	t_stack	*current;
+	int	i;
+	int	j;
 
-	current = stack;
-	while (current)
+	i = 0;
+	while (i < stack->size)
 	{
-		if (current->value == value)
-			return (true);
-		current = current->next;
+		j = i + 1;
+		while (j < stack->size)
+		{
+			if (stack->tab[i] == stack->tab[j])
+				return (false);
+			j++;
+		}
+		i++;
 	}
-	return (false);
-}
-
-void	ft_print_stack(t_stack *stack)
-{
-	t_stack	*current;
-
-	current = stack;
-	while (current)
-	{
-		ft_putnbr_fd(current->value, 1);
-		ft_putchar_fd('\n', 1);
-		current = current->next;
-	}
+	return (true);
 }

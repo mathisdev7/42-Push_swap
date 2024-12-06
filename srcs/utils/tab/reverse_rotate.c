@@ -6,44 +6,42 @@
 /*   By: mazeghou <mazeghou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:09:57 by mazeghou          #+#    #+#             */
-/*   Updated: 2024/12/02 18:09:57 by mazeghou         ###   ########.fr       */
+/*   Updated: 2024/12/06 22:40:05 by mazeghou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/push_swap.h"
+#include "push_swap.h"
 
-static void	reverse_rotate(t_stack **stack)
+static void	reverse_rotate(t_stack *stack)
 {
-	t_stack	*last;
-	t_stack	*second_last;
+	int	i;
+	int	temp;
 
-	if (!*stack || !(*stack)->next)
+	if (stack->size < 2)
 		return ;
-	last = *stack;
-	second_last = NULL;
-	while (last->next)
+	i = stack->size - 1;
+	temp = stack->tab[stack->size - 1];
+	while (i > 0)
 	{
-		second_last = last;
-		last = last->next;
+		stack->tab[i] = stack->tab[i - 1];
+		i--;
 	}
-	second_last->next = NULL;
-	last->next = *stack;
-	*stack = last;
+	stack->tab[0] = temp;
 }
 
-void	rra(t_stack **stack)
+void	rra(t_stack *stack)
 {
 	reverse_rotate(stack);
 	ft_putstr_fd("rra\n", 1);
 }
 
-void	rrb(t_stack **stack)
+void	rrb(t_stack *stack)
 {
 	reverse_rotate(stack);
 	ft_putstr_fd("rrb\n", 1);
 }
 
-void	rrr(t_stack **a, t_stack **b)
+void	rrr(t_stack *a, t_stack *b)
 {
 	reverse_rotate(a);
 	reverse_rotate(b);
