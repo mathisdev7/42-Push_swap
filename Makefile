@@ -18,7 +18,7 @@ SRC_FILES = $(SRC_DIR)/push_swap.c \
 			$(SRC_DIR)/utils/main.c \
 			$(UTILS_DIR)/algorithm/sort.c \
 			$(UTILS_DIR)/algorithm/push_numbers.c \
-			$(UTILS_DIR)/algorithm/get.c \
+			$(UTILS_DIR)/algorithm/get.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 NAME = push_swap
@@ -32,7 +32,7 @@ all: $(LIBFT) $(NAME)
 %.o: %.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-$(NAME): $(OBJ_FILES)
+$(NAME): $(OBJ_FILES) $(LIBFT)
 	$(CC) $(OBJ_FILES) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
